@@ -1,3 +1,13 @@
+# Before you start
+
+Please install the dependencies
+# this should be enough
+
+```
+pip3 isntall pandas
+```
+
+
 # roadworks_assignment
 Repository with the assignment code and description
 
@@ -30,7 +40,7 @@ Data preparation
 
 I first convert \*.xml files to pandas.DataFrame (DataFrame) to simplify basic operations
 on data like sorting, cleaning, grouping and creating views. The processing is preformed
-using the function ''read_roadworks_xml(filename)''.
+using the function ``read_roadworks_xml(filename)``.
 
 Simple characterization
 --
@@ -49,15 +59,22 @@ would be somewhat responsible for local roads.
 
 To access the ''local_authorities'' data certain cleanup need to be done, since data is
 stored either as a single string with a name or as '/' separated names the following way:
-'Derbyshire / Leicestershire / Nottinghamshire'
+'Derbyshire / Leicestershire / Nottinghamshire', converting it to list will provide
+additional flexibility in case of further processing. 
  
 
-### The longest road in UK
+#### The longest road in UK
 
 I have a hypothesis, that the road, that have the most number of Local Authorities
 responsible for it is the longest one. I will group my data
 
-Improving analysis with open data
---
+### Improving analysis with open data
 
-I noticed, that 
+
+I noticed, that, (citites->Counties)
+
+User view
+--
+The data is vast and it can be interesting for a broad audience of users, e.g. drivers. 
+I created a simple function, `user_view(date_range)`, which should generate a report, 
+based on user input, and which can be used in dynamical environment.
