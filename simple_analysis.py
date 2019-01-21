@@ -1,5 +1,13 @@
 #!/usr/bin/python3
 
+"""
+NB
+This module contains the __main__, where the actual analysis is preformed.
+The rest of the module contains functions for data processing and cleaning.
+"""
+
+
+
 import pandas as pd
 import xml.etree.ElementTree as ET
 from datetime import datetime
@@ -97,4 +105,30 @@ if __name__ == "__main__":
 
     process_roadworks_data(roadWorks)    
 
-    print(roadWorks[0:10].to_string())
+    # can be outputted as
+    #print(roadWorks[0:10].to_string())
+    
+    # The longest roadwork:
+    # here I estimate the time limits of all works and find out what is the longest
+    # roadwork by estimating timedelta.
+
+    # obvious
+    start_max = roadWorks.loc[roadWorks['start_date'].idxmax()]['start_date']
+
+    # too early
+    start_min = roadWorks.loc[roadWorks['start_date'].idxmin()]['start_date']
+
+    # 
+    end_max = roadWorks.loc[roadWorks['end_date'].idxmax()]['end_date']
+
+    # obvious
+    end_min = roadWorks.loc[roadWorks['end_date'].idxmin()]['end_date']
+   
+    print('Datafiles contain information about roadworks, that happened in UK in the '\
+          +'period between ' + str(start_min.date()) + ' and ' + str(end_max.date()) + '.') 
+
+    # The busiest day of 2016    
+
+    # The longest road in UK 
+    
+    

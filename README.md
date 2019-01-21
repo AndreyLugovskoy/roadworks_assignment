@@ -61,12 +61,17 @@ To access the ''local_authorities'' data certain cleanup need to be done, since 
 stored either as a single string with a name or as '/' separated names the following way:
 'Derbyshire / Leicestershire / Nottinghamshire', converting it to list will provide
 additional flexibility in case of further processing. 
- 
+
+#### The longest roadwork
+
+Here I determine the time limits of roadworks in question. Besides that I find the longest
+roadwork in the dataset. 
 
 #### The longest road in UK
 
 I have a hypothesis, that the road, that have the most number of Local Authorities
-responsible for it is the longest one. I will group my data
+responsible for it is the longest one. To find this out, I will group my data by road 
+names and calculate independent entities in 'local_authorities'.
 
 ### Improving analysis with open data
 
