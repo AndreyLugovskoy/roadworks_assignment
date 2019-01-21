@@ -121,8 +121,8 @@ if __name__ == "__main__":
  
     # cleanup 
     # this values are negligable for overall statistics
-    roadWorks = roadWorks[roadWorks['local_authority']!='None']
-    roadWorks = roadWorks[roadWorks['local_authority']!='Not Specified'] 
+    roadWorks = roadWorks[roadWorks['local_authority'] != 'None']
+    roadWorks = roadWorks[roadWorks['local_authority'] != 'Not Specified'] 
 
     # flatten the local_authorities and find unique entries
     authList = roadWorks['local_authority'].values
