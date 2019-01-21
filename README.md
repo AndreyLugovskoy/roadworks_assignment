@@ -48,24 +48,36 @@ Simple characterization
 I start with simple analysis of the data and some cleanup. Here I answer certain simple
 questions, which do not require any complex analysis or additional data.
 I find the most important parameters to be connected with:
-- Place, where works take place
-- Time period at which works take place 
+- Places, where works take place
+- Time periods at which works take place 
 - Delays related to works
+
+Doing all that I generate the text containing the data, which will then enter my final
+report for this assignment. I believe this data to be in general interesting. 
 
 A clue, to where exactly works take place can be estimated from the ''local_authority''
 data. Unique entries in this column correspond to various administrative divisions of UK
 such as Counties, Cities and other. One can logically assume, that County administration
 would be somewhat responsible for local roads.
 
-To access the ''local_authorities'' data certain cleanup need to be done, since data is
+To access the ''local_authorities'' data, certain cleanup needs to be done, since data is
 stored either as a single string with a name or as '/' separated names the following way:
 'Derbyshire / Leicestershire / Nottinghamshire', converting it to list will provide
 additional flexibility in case of further processing. 
+
+#### Unique roads and authorities 
+
+Here I determine how many unique regions of the UK are affected by works, as well as how
+many unique roads are being repaired.
 
 #### The longest roadwork
 
 Here I determine the time limits of roadworks in question. Besides that I find the longest
 roadwork in the dataset. 
+
+#### Short report
+
+A short 
 
 #### The longest road in UK
 
@@ -76,7 +88,7 @@ names and calculate independent entities in 'local_authorities'.
 ### Improving analysis with open data
 
 
-I noticed, that, (citites->Counties)
+I noticed, that, (cities->Counties)
 
 User view
 --

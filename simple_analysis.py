@@ -7,9 +7,11 @@ The rest of the module contains functions for data processing and cleaning.
 """
 
 
-
+import textwrap 
 import pandas as pd
+import numpy as np
 import xml.etree.ElementTree as ET
+
 from datetime import datetime
 
 
@@ -82,18 +84,25 @@ def process_roadworks_data(data):
                                           .astype('datetime64')
 
     # convert / separated strings into list
+    # I use array, because it would be easier to flatten next
     data['local_authority'] = data['local_authority']\
                             .astype(str)\
-                            .apply(lambda x: x.replace(' / ', '/').split('/'))
+                            .apply(lambda x: np.array(x.replace(' / ', '/').split('/')))
     
     # minimal string cleanup, more can be done
     data[['location', 'closure_type']] = \
     data[['location', 'closure_type']].apply(lambda x : x.str.strip())
 
+def long_short_string(data, dt, length = 'longest'):
+    out = "The " + length + " road work lasts between "\
+      + str(data['start_date'].date())\
+      + " and " + str(data['end_date'].date()) \
+      + " and takes " + str(dt) + ' h:m:s.'
+    return out
 
 if __name__ == "__main__":
-    print("Executing as main program")
-    print("Value of __name__ is: ", __name__)
+    print("Simple analysis results")
+    #print("Value of __name__ is: ", __name__)
 
     d0209 = read_roadworks_xml('./he_roadworks_2016_02_29.xml')
     d0307 = read_roadworks_xml('./he_roadworks_2016_03_07.xml')
@@ -108,27 +117,64 @@ if __name__ == "__main__":
     # can be outputted as
     #print(roadWorks[0:10].to_string())
     
-    # The longest roadwork:
-    # here I estimate the time limits of all works and find out what is the longest
-    # roadwork by estimating timedelta.
+    ''' Unique places and roads'''
+ 
+    # flatten the local_authorities and find unique entries
+    authList = roadWorks['local_authority'].values
+
+    # values do not flatten well due to type inconsistency
+    authSet = set( item for sublist in authList for item in sublist)
+
+    # cleanup
+    authSet.remove('None')
+    authSet.remove('Not Specified')
+
+    # now the same for roads, but much faster.
+    roadsList = roadWorks['road'].unique()
+
+    ''' 
+    The longest roadwork:
+    here I estimate the time limits of all works and find out what is the longest
+    roadwork by estimating timedelta.
+    '''
 
     # obvious
     start_max = roadWorks.loc[roadWorks['start_date'].idxmax()]['start_date']
-
     # too early
     start_min = roadWorks.loc[roadWorks['start_date'].idxmin()]['start_date']
-
     # 
     end_max = roadWorks.loc[roadWorks['end_date'].idxmax()]['end_date']
-
     # obvious
     end_min = roadWorks.loc[roadWorks['end_date'].idxmin()]['end_date']
-   
-    print('Datafiles contain information about roadworks, that happened in UK in the '\
-          +'period between ' + str(start_min.date()) + ' and ' + str(end_max.date()) + '.') 
 
-    # The busiest day of 2016    
+    # longest and shortest works are obvious 
+    lWork = (roadWorks['end_date'] - roadWorks['start_date']).max()
+    sWork = (roadWorks['end_date'] - roadWorks['start_date']).min()
 
-    # The longest road in UK 
+    # corresponding entries in DataFrame     
+    lWorkEntry = roadWorks.loc[(roadWorks['end_date']
+                 - roadWorks['start_date']).idxmax()]
+
+    sWorkEntry = roadWorks.loc[(roadWorks['end_date']
+                 - roadWorks['start_date']).idxmin()]
+    
+    out = 'Datafiles contain information about roadworks, that happened in ' \
+          + str(len(authSet)) +' regions in Great Britain in the '\
+          +'period between ' + str(start_min.date()) + ' and ' + str(end_max.date())+'.'
+    out += 'Roadworks were performed on ' + str(len(roadsList)) + ' roads.'
+
+    # some beautification I can use latter.
+    wrapper = textwrap.TextWrapper(initial_indent = "  ", width = 70, replace_whitespace = True)
+
+    out += long_short_string(lWorkEntry, lWork,)\
+           + long_short_string(sWorkEntry, sWork, length='shortest')
+
+    print(wrapper.fill(out))
+
+    ''' The busiest day of 2016 '''
+
+    ''' The region of UK with the busiest road of UK in 2016 '''
+
+    ''' The longest road in UK '''
     
     
