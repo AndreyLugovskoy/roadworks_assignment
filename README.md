@@ -23,4 +23,4 @@ The structure of the data with comments on meaning:
 **centre_easting** 448783 -- Easting of works center British National Grid coordinates (EPSG:27700).\
 **centre_northing** 339811 -- Northing of works center in British National Grid coordinates (EPSG:27700).\
 **status** Firm -- Indicates, if work is confirmed.\
-**published_date** 2014-08-06T09:33:58\
+**published_date** 2014-08-06T09:33:58
