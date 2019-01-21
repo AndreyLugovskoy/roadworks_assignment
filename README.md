@@ -70,14 +70,14 @@ additional flexibility in case of further processing.
 Here I determine how many unique regions of the UK are affected by works, as well as how
 many unique roads are being repaired.
 
-#### The longest roadwork
+#### The longest (shortest) roadwork
 
 Here I determine the time limits of roadworks in question. Besides that I find the longest
-roadwork in the dataset. 
+(shortest) roadwork in the dataset. 
 
 #### Short report
 
-A short 
+A short paragraph of text with obtained numbers. A first paragraph of the report. 
 
 #### The longest road in UK
 
