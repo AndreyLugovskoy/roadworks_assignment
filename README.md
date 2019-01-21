@@ -24,3 +24,40 @@ The structure of the data with comments on meaning:
 **centre_northing** 339811 -- Northing of works center in British National Grid coordinates (EPSG:27700).\
 **status** Firm -- Indicates, if work is confirmed.\
 **published_date** 2014-08-06T09:33:58
+
+Data preparation
+--
+
+I first convert \*.xml files to pandas.DataFrame (DataFrame) to simplify basic operations
+on data like sorting, cleaning, grouping and creating views. The processing is preformed
+using the function ''read_roadworks_xml(filename)''.
+
+Simple characterization
+--
+
+I start with simple analysis of the data and some cleanup. Here I answer certain simple
+questions, which do not require any complex analysis or additional data.
+I find the most important parameters to be connected with:
+- Place, where works take place
+- Time period at which works take place 
+- Delays related to works
+
+A clue, to where exactly works take place can be estimated from the ''local_authority''
+data. Unique entries in this column correspond to various administrative divisions of UK
+such as Counties, Cities and other. One can logically assume, that County administration
+would be somewhat responsible for local roads.
+
+To access the ''local_authorities'' data certain cleanup need to be done, since data is
+stored either as a single string with a name or as '/' separated names the following way:
+'Derbyshire / Leicestershire / Nottinghamshire'
+ 
+
+### The longest road in UK
+
+I have a hypothesis, that the road, that have the most number of Local Authorities
+responsible for it is the longest one. I will group my data
+
+Improving analysis with open data
+--
+
+I noticed, that 
