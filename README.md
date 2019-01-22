@@ -7,6 +7,30 @@ Please install the dependencies
 pip3 isntall pandas
 ```
 
+To plot the maps geopandas library needs to be installed.
+I had problem installing, depending on OS and python version.
+Anyway, the pictures are already in the reopistory.
+
+```
+pip3 isntall geopandas
+pip3 install descartes
+```
+
+How to run
+--
+
+python simple_analysis.py produces most of the text and tables
+of the report page in separate files:
+
+header.txt
+longest_r.txt
+busy.txt
+busy.html
+delay_message.txt
+delay_table.html
+
+I typested (not generated, used WYSIWYG editor) the final report_page.html
+using this data, and changing text a little bit.
 
 # roadworks_assignment
 Repository with the assignment code and description
@@ -87,8 +111,7 @@ names and calculate independent entities in 'local_authorities'.
 
 ### Improving analysis with open data
 
-
-I noticed, that, (cities->Counties)
+I added the data on area of the Counties 
 
 User view
 --
