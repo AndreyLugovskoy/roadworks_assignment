@@ -1,5 +1,8 @@
 # Before you start
 
+Python version I used is 3.6.5, I did a test run for 
+python 3.5, and didn't find any problems.
+
 Please install the dependencies
 
 
