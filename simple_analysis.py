@@ -94,6 +94,38 @@ def process_roadworks_data(data):
     data[['location', 'closure_type']] = \
     data[['location', 'closure_type']].apply(lambda x : x.str.strip())
 
+def split_local_authority(data, header = None):
+    """Function to get DataFrame, splited by local authority entries.
+    
+    Keyword args:
+        header: if header is given, it MUST contain the index name, among others
+    Args:
+        data: DataFrame containing xml information
+
+    Returns:
+        process dataframe
+    """
+    conversion_list = []                                                           
+
+    aList = data['local_authority'].values
+
+    conversion_list = []
+
+    if header == None:
+        header = data.reset_index().columns.tolist()
+
+    rh = header
+    rh.remove('local_authority')
+
+    # TODO refactor into function
+    for i,d in data.reset_index()[rh].iterrows():
+         for c in aList[i]:
+             conversion_list.append([c]+d.tolist())
+
+    splited = pd.DataFrame(conversion_list, columns=['local_authority']+rh)\
+              .set_index(data.index.names)
+    return splited
+
 def long_short_string(data, dt, length = 'longest'):
     out = "The " + length + " road work lasts between "\
       + str(data['start_date'].date())\
@@ -173,8 +205,56 @@ if __name__ == "__main__":
 
     print(wrapper.fill(out),file=open('header.txt','w'))
 
-    ''' The longest road in UK ''' 
+    ''' The longest road in UK '''
+    ''' Here I try to roughly estimate, which road in UK is the longest one.
+        I first estimate the work, for which the most number of authorities
+        are responsible. After that I update the estimate with the external
+        data on municipal regions area. While the answer is correct, this 
+        method is highly inaccurate, since the statistics is very limited. 
+    ''' 
+    roadsView = split_local_authority(roadWorks, header = ['reference_number',
+    'local_authority','road'])
 
+    results_auth_number = roadsView.drop_duplicates().groupby('road')\
+    .count().sort_values(by=['local_authority'],ascending=False)
+
+    # This data doesn't give us the correct answer, but gives
+    # us a clue abot the longest road in UK - A1. The "prediction"
+    # can be imporved using the number of junctions or the area
+    # of the crossed regions.
+
+    # I downloaded some open data on area and population of large
+    # administative areas of UK and stored it as csv, now I will
+    # merge the datasets and try to estimate the length.
+
+   
+    area_pop = pd.read_csv('./Counties_area_pop.csv',header=0)
+    roads_area = pd.merge(roadsView, area_pop[['Name','Area km2']],
+              left_on = 'local_authority',   right_on='Name')
+
+    roads_area = roads_area.drop(columns = ['Name'])
+
+    roads_area['Area km2'] = roads_area['Area km2']\
+                              .apply(lambda x: x**0.5)
+
+    roads_area = roads_area.rename(columns = {'Area km2' : 'Approx Length, km'})
+
+    results_area = roads_area.drop_duplicates().groupby('road').sum().sort_values(by='Approx Length, km',
+    ascending=False)
+
+    print(results_area[0:3],'\n',results_auth_number[0:3],'\n')
+    quit()
+    """
+         I do obtain the right value for the A1, 
+         but the inaccuracy of this method is obviously too big.
+         All other roads are ordered wrongly and the length values are ~40-50
+         percent wrong.
+    """
+
+    roads_area.drop_duplicates().groupby('road').sum().sort_values(by='Approx Length, km',
+    ascending=False)
+
+    
     
 
     # A plot, which gives a clue about the distribution of dates.
