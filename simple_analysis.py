@@ -381,7 +381,7 @@ if __name__ == "__main__":
     out_busy += wrapper.fill('Ten regions in the UK with the most busy roadworks '\
                              'schedule during Easter holidays in 2016.')
 
-    print('out_busy', file=open('./busy.text', 'a'))
+    print(out_busy, file=open('./busy.txt', 'w'))
     #print((ten_most_loaded[0:10]).to_html())
     print(ten_most_loaded[0:10].to_html(), file = open('./busy.html','w'))
 
