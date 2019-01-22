@@ -1,15 +1,18 @@
 # Before you start
 
 Please install the dependencies
-### this should be enough
+
+
+In general this should be enough
 
 ```
 pip3 isntall pandas
 ```
 
 To plot the maps geopandas library needs to be installed.
-I had problem installing, depending on OS and python version.
-Anyway, the pictures are already in the reopistory.
+I had small problem installing, depending on OS and python version.
+Anyway, the pictures are already in the reopistory. In the end
+I was able to install it on linux machine by just running.
 
 ```
 pip3 isntall geopandas
@@ -18,6 +21,8 @@ pip3 install descartes
 
 How to run
 --
+
+To see the report, please dowload report_page.html and report_page.files
 
 python simple_analysis.py produces most of the text and tables
 of the report page in separate files:
@@ -99,10 +104,6 @@ many unique roads are being repaired.
 Here I determine the time limits of roadworks in question. Besides that I find the longest
 (shortest) roadwork in the dataset. 
 
-#### Short report
-
-A short paragraph of text with obtained numbers. A first paragraph of the report. 
-
 #### The longest road in UK
 
 I have a hypothesis, that the road, that have the most number of Local Authorities
@@ -111,10 +112,28 @@ names and calculate independent entities in 'local_authorities'.
 
 ### Improving analysis with open data
 
-I added the data on area of the Counties 
+I added the data on area of the Counties, which gave a more resonable result.
+
+
+### Easter bank holiday
+
+Here I analyse, how loaded are English roads duet to roadworks during the Easter holidays.
+I do this in two steps, answering the questions : what are the regions, with the most 
+amount of works, and what are the regions with the highest total delay.
 
 User view
 --
 The data is vast and it can be interesting for a broad audience of users, e.g. drivers. 
+The date parameter can be changed in __main__ section of the function. What it outputs is
+
+Plot view
+--
+It would be a pitty, if geographical data (Easting-Northing) in datafile would be wasted.
+I created two maps, using this information and maps, avaliable from open sources, using 
+python library "geopandas". Maps are, respectively for the whole time period, and Easter 
+holidays.
+The data is vast and it can be interesting for a broad audience of users, e.g. drivers. 
+The date parameter can be changed in __main__ section of the function. What it outputs is
+the report on works, prepeared in human readable form.
 I created a simple function, `user_view(date_range)`, which should generate a report, 
 based on user input, and which can be used in dynamical environment.
