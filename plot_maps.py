@@ -14,7 +14,7 @@ def plot_map(data, name, title = 'None'):
     
     roadsMap2=gp.read_file('./geodata/slim_roads.shp')
     cont=gp.read_file('./geodata/ne_10m_admin_0_countries.shp')
-    #cities=pd.read_csv('./GB.csv')
+   
     cities=gp.read_file('./geodata/Major_Towns_and_Cities_December_2015_Boundaries.geojson')
 
 
@@ -47,9 +47,6 @@ def plot_map(data, name, title = 'None'):
     gs.plot(ax=ax, marker='o', color='blue', markersize=20, label = 'Active road works')
     
     cities['geometry'].plot(ax=ax, alpha=0.7, color = 'c', label = 'Populated areas')
-    
-    import seaborn as sns
-    sns.set_palette(sns.color_palette("hls", 20))
     
     # Adding large cities points
     plot_data = zip(cities.geometry.centroid.x, cities.geometry.centroid.y,
