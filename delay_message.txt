@@ -1,0 +1,2 @@
+  Total delay during the same period in various regions. Only values
+with delay above two hours are given.

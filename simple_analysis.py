@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!usr/bin/python3
 
 """
 NB
@@ -171,7 +171,7 @@ if __name__ == "__main__":
     out += long_short_string(lWorkEntry, lWork,)\
            + long_short_string(sWorkEntry, sWork, length='shortest')
 
-    print(wrapper.fill(out))
+    print(wrapper.fill(out),file=open('header.txt','w'))
 
     ''' The longest road in UK ''' 
 
@@ -239,7 +239,7 @@ if __name__ == "__main__":
     ''' The region of UK with the busiest roads (due to works) during 
         Easter bank-holiday 2016'''
 
-    print('#Some data processing\n')   
+    #print('#Some data processing\n')   
  
     date_min = datetime.strptime('Mar 25 2016  11:59PM', '%b %d %Y %I:%M%p')
     date_max = datetime.strptime('Mar 28 2016  11:59PM', '%b %d %Y %I:%M%p')
@@ -300,8 +300,9 @@ if __name__ == "__main__":
     out_busy += wrapper.fill('Ten regions in the UK with the most busy roadworks '\
                              'schedule during Easter holidays in 2016.')
 
+    print('out_busy', file=open('./busy.text', 'a'))
     #print((ten_most_loaded[0:10]).to_html())
-    print(str(ten_most_loaded[0:10]))
+    print(ten_most_loaded[0:10].to_html(), file = open('./busy.html','w'))
 
     '''Average delay due to works in the same period'''
     
@@ -324,7 +325,7 @@ if __name__ == "__main__":
     laDelay = laWorks['expected_delay'].map(delay)
     laDelay = laDelay.dropna()
     delayTable = laDelay.groupby(laDelay.index)\
-                        .agg(np.mean)\
+                        .agg(np.sum)\
                         .sort_values(ascending = False)\
                         .to_frame()
 
@@ -332,10 +333,6 @@ if __name__ == "__main__":
  
     delay_out = wrapper.fill('Total delay during the same period in various regions.'\
                             ' Only values with delay above two hours are given.')
-
-    delayTable = .groupby(worksCount.index)\                                
-            .agg(lambda x: ', '.join(str(i) for i in x)).iloc[::-1]\
-            .reset_index().set_index('Region')
 
     delayTable=delayTable.reset_index().set_index('expected_delay')
 
@@ -352,4 +349,6 @@ if __name__ == "__main__":
     delayTable=delayTable.set_index('Region')\
                 .sort_values(by=['Total delay in minutes'],ascending=False)
 
-    delayTable[delayTable['Total delay in minutes']>120] 
+    print(delay_out, file = open('./delay_message.txt','w'))
+    print(delayTable[delayTable['Total delay in minutes']>120].to_html(), file =
+open('./delay_table.html', 'w')) 

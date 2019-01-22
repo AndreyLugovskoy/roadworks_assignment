@@ -1,5 +1,8 @@
 *.sw[a-z]
 __pycache__
-s{oo,ee,aa}s
-S{OO,EE,AA}S
+s{oo,ee,aa}s*
+S{OO,EE,AA}S*
 fnord
+*.*~
+~*.*
+~*.*~
