@@ -206,6 +206,7 @@ if __name__ == "__main__":
     print(wrapper.fill(out),file=open('header.txt','w'))
 
     ''' The longest road in UK '''
+
     ''' Here I try to roughly estimate, which road in UK is the longest one.
         I first estimate the work, for which the most number of authorities
         are responsible. After that I update the estimate with the external
@@ -216,15 +217,16 @@ if __name__ == "__main__":
     'local_authority','road'])
 
     results_auth_number = roadsView.drop_duplicates().groupby('road')\
-    .count().sort_values(by=['local_authority'],ascending=False)
+    .count().sort_values(by=['local_authority'],ascending=False)\
+    .rename(columns = {'local_authority' : 'N of responsible authorities'})
 
     # This data doesn't give us the correct answer, but gives
-    # us a clue abot the longest road in UK - A1. The "prediction"
-    # can be imporved using the number of junctions or the area
+    # us a clue about the longest road in UK - A1. The "prediction"
+    # can be improved using the number of junctions or the area
     # of the crossed regions.
 
     # I downloaded some open data on area and population of large
-    # administative areas of UK and stored it as csv, now I will
+    # administrative areas of UK and stored it as csv, now I will
     # merge the datasets and try to estimate the length.
 
    
@@ -242,19 +244,18 @@ if __name__ == "__main__":
     results_area = roads_area.drop_duplicates().groupby('road').sum().sort_values(by='Approx Length, km',
     ascending=False)
 
-    print(results_area[0:3],'\n',results_auth_number[0:3],'\n')
-    quit()
-    """
-         I do obtain the right value for the A1, 
+    # oneline output 
+    print('The longest road in UK ' + 'is ' + str(results_area.index[0]) + '.\n',
+            file = open('longest_r.txt','w'))
+ 
+    '''  I do obtain the right value for the A1, 
          but the inaccuracy of this method is obviously too big.
          All other roads are ordered wrongly and the length values are ~40-50
          percent wrong.
-    """
+    '''
 
     roads_area.drop_duplicates().groupby('road').sum().sort_values(by='Approx Length, km',
     ascending=False)
-
-    
     
 
     # A plot, which gives a clue about the distribution of dates.
