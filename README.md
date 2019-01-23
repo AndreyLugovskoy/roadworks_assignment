@@ -134,9 +134,4 @@ Plot view
 It would be a pitty, if geographical data (Easting-Northing) in datafile would be wasted.
 I created two maps, using this information and maps, avaliable from open sources, using 
 python library "geopandas". Maps are, respectively for the whole time period, and Easter 
-holidays.
-The data is vast and it can be interesting for a broad audience of users, e.g. drivers. 
-The date parameter can be changed in __main__ section of the function. What it outputs is
-the report on works, prepeared in human readable form.
-I created a simple function, `user_view(date_range)`, which should generate a report, 
-based on user input, and which can be used in dynamical environment.
+holidays. Geodata in '\*.shp' and accompanying formats are stored in directory with the same name. 
