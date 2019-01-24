@@ -25,7 +25,7 @@ pip3 install descartes
 How to run
 --
 
-To see the report, please dowload report_page.html and report_page.files
+To see the report, please download report_page.html and report_page.files
 
 python simple_analysis.py produces most of the text and tables
 of the report page in separate files:
