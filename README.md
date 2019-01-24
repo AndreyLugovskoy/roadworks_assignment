@@ -120,7 +120,7 @@ I added the data on area of the Counties, which gave a more resonable result.
 
 ### Easter bank holiday
 
-Here I analyse, how loaded are English roads duet to roadworks during the Easter holidays.
+Here I analyse, how loaded are English roads due to roadworks during the Easter holidays.
 I do this in two steps, answering the questions : what are the regions, with the most 
 amount of works, and what are the regions with the highest total delay.
 
